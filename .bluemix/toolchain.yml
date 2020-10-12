@@ -1,4 +1,4 @@
-version: '2'
+version: "2"
 messages:
   $i18n: locales.yml
 template:
@@ -6,11 +6,15 @@ template:
     $ref: "#/messages/template.name"
   description:
     $ref: "#/messages/template.description"
-  header: '![](toolchain.svg?localize)'
+  header: "![](toolchain.svg?localize)"
   icon: secure-lock-kubernetes.svg
   required:
     - build
     - repo
+  $configuration:
+     ENABLE_EXTENSIONS: true
+     ENABLE_IF_ELSE: true
+     EXPRESSION_MAXLENGTH: 1000
   info:
     git url: >
       "[" + $env.repository + "]" +
@@ -20,7 +24,7 @@ template:
         "(" + $env.repository +
           "/tree/" + $env.branch + ")"
 toolchain:
-  name: 'kube-toolchain-{{timestamp}}'
+  name: "kube-toolchain-{{timestamp}}"
   template:
     getting_started:
       $ref: "#/messages/template.gettingStarted"
