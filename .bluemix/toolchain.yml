@@ -1,3 +1,4 @@
+---
 version: "2"
 messages:
   $i18n: locales.yml
@@ -43,6 +44,26 @@ services:
       type: $env.type || 'clone'
       has_issues: true
       enable_traceability: true
+  pipeline-repo:
+    service_id: >
+      $env.pipeline_type === 'tekton' ? 'githubconsolidated' : '' 
+    parameters:
+      repo_url: $env.repository
+      source_repo_url: "https://github.com/huayuenh/test"  
+      type: "link"
+      has_issues: false
+      enable_traceability: false
+      kind: ['pipeline']
+  tekton-catalog-repo:
+    service_id: >
+      $env.pipeline_type === 'tekton' ? 'githubconsolidated' : ''
+    parameters:
+      repo_url: "https://github.com/open-toolchain/tekton-catalog"
+      source_repo_url: "https://github.com/open-toolchain/tekton-catalog"
+      type: "link"
+      has_issues: false
+      enable_traceability: false
+      kind: ['pipeline']
   build:
     service_id: pipeline
     parameters:
