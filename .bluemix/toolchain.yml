@@ -76,7 +76,8 @@ services:
         $env.pipeline_type === 'tekton' ? 'tekton': 'classic'
       configuration:
         content:
-          $text: pipeline.yml
+          $text: >
+            $env.pipeline_type === 'tekton' ? 'pipeline_tekton.yml' : 'pipeline.yml'
         env:
           GIT_REPO: repo
           APP_NAME: '{{form.pipeline.parameters.app-name}}'
@@ -93,7 +94,7 @@ services:
 form:
   pipeline:
     parameters:
-      app-name: '{{services.repo.parameters.repo_name}}'
+      app-name: "{{services.repo.parameters.repo_name}}"
       prod-cluster-namespace: prod
     schema:
       $ref: deploy.json
